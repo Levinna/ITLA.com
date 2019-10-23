@@ -1,18 +1,29 @@
 <template>
-  <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png">
-    <hello-world></hello-world>
+  <div class="column">
+    <div class="side">
+      <user-menu></user-menu>
+    </div>
+    <div class="main">
+      <feed-ranking></feed-ranking>
+    </div>
   </div>
 </template>
 
 <script>
 // @ is an alias to /src
-import HelloWorld from '../components/HelloWorld'
+//import HelloWorld from '../components/HelloWorld'
+import UserMenu from "../components/UserMenu";
+import FeedRanking from '../components/FeedRanking'
 
 export default {
   name: 'home',
   components: {
-    HelloWorld
+    UserMenu,
+    FeedRanking
   }
 }
 </script>
+
+<style scoped>
+
+</style>
