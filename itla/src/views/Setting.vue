@@ -9,45 +9,181 @@
 
 
 <template>
-    <!--로그인 했을 때-->
-    <div v-if="userID">
-        <!--카테고리 선택 항목-->
 
-        <div id = "category_wrap">
-            <h1 id = "setting_head">카테고리 편집</h1>
-            <input type="text" v-model="search_target">
-            <div id = "list"></div>
-        </div>
+    <div id = "main_wrap">
+        <!--로그인 했을 때-->
+        <div v-if="userID" id ="login_true" style="width: 80%">
+            <!--카테고리 선택 항목-->
 
-        <!--비밀번호 변경 항목-->
-        <div id = "change_password">
-            <h1 id = "password_head">비밀번호 변경</h1>
-            <div>
+            <div id = "category_wrap">
+                <h1>카테고리 편집</h1>
+                <el-main id = "list"  style="height: 300px">
+                    <el-table
 
+                            :data="UserCategory.filter(data => !search_target || data.category.toLowerCase().includes(search_target.toLowerCase()))"
+                            height="250"
+                    >
+                        <el-table-column
+                                prop="category"
+                                align="center">
+                        </el-table-column>
+
+                        <el-table-column
+
+                                align="right">
+                            <template slot="header" slot-scope="scope">
+                                <el-input
+                                        auto-complete="true"
+                                        v-model.lazy="search_target"
+                                        size="large"
+                                        placeholder="Type to search"
+                                        style="float: left;"
+                                />
+                                <el-button @click = "Create">create</el-button>
+                            </template>
+                            <template slot-scope="scope">
+                                <el-button
+                                        size="mini"
+                                        @click="Edit(scope.$index, scope.row)">Edit</el-button>
+                                <el-button
+                                        type="danger"
+                                        size="mini"
+                                        @click="Delete(scope.$index, scope.row)">delete</el-button>
+
+
+
+                            </template>
+                        </el-table-column>
+                    </el-table>
+                </el-main>
+            </div>
+            <div class="clear"></div>
+
+            <!--비밀번호 변경 항목-->
+            <div id = "change_password">
+                <h1 id = "password_head">비밀번호 변경</h1>
+                <div>
+
+                        비밀번호 <el-input type="password" v-model="new_password" placeholder="비밀번호는 6자리 이상입니다" show-password></el-input>
+
+                    <el-input type="password" v-model="confirm" placeholder = "비밀번호 확인" show-password></el-input>
+
+                    <el-button id = "submit" type = "primary"  @click="confirmingPassword(new_password,confirm)" >비밀번호 변경하기</el-button>
+                </div>
             </div>
         </div>
-    </div>
 
 
-    <!--로그인 하지 않았을 떄-->
-    <div v-else>
-        로그인 해 주세요
+        <!--로그인 하지 않았을 떄-->
+        <div v-else id = "login_false">
+            <img src="https://www.freeiconspng.com/uploads/error-icon-4.png" width = "300" height="300">
+            <p>로그인 해 주십시오</p>
+        </div>
     </div>
 </template>
 
 <script>
+    function changePassword(new_password) {
+        console.log(new_password,"로 변경됨")
+    }
+
     export default {
         name: "Setting",
-        data(){
-            return{
-                userID : 3,
-                search_target :""
-            }
+        data() {
+            return {
+                process_state:"primary",
+                userID: 1,
+                search_target: "",
+                confirm : "",
+                new_password: "",
+                visible: false,
+                UserCategory: [
+                    {
+                        "category": "shopping",
 
-        }
+                    },
+                    {
+                        "category": "reading",
+
+                    },
+                    {
+                        "category": "cleaning",
+
+                    },
+                    {
+                        "category": "exercise",
+
+                    },
+                    {
+                        "category": "news",
+
+                    },
+                    {
+                        "category": "review"
+                    },{
+                        "category": "buy"
+                     }
+                ]
+            }
+        },
+        methods: {
+            Edit(index, row) {
+                row.category = prompt("변경할 카테고리를 입력하세요");
+            },
+            Delete(index, row) {
+                this.$data.UserCategory.splice(index,1);
+                console.log(this.$data.UserCategory)
+            },
+            Create(){
+                this.$data.UserCategory.push({category:prompt("데이터를 입력하세요")});
+                console.log(this.$data.UserCategory)
+            },
+            confirmingPassword(new_password,confirm){
+                if(new_password == confirm) {
+                    changePassword(new_password);
+                }
+                else
+                    alert("비밀번호 확인이 다릅니다.");
+            },
+        },
+
     }
 </script>
 
 <style scoped>
+tr{
+    display: flex;
+}
+/*    html, body, div{
+        height:100%;
+        width: 100%;
 
+    }
+
+
+
+    #login_false{
+        text-align: center;
+        height: 50%;
+        width: 50%;
+        background: white;
+        color:black;
+        margin: auto;
+        border: 1px solid black ;
+    }
+    #category_wrap,#change_password{
+    }
+    #list{
+        background: wheat;
+        min-height: 300px;
+    }*/
+#login_true{
+    position:absolute;
+    top:50%;
+    left:50%;
+    transform:translate(-50%, -50%)
+}
+    .clear{
+        clear: both;
+    }
 </style>
