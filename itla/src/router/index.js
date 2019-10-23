@@ -2,6 +2,8 @@
 // config all the settings in Routing
 import Vue from 'vue'
 import VueRouter from 'vue-router'
+
+// Import Pages
 import Home from '../views/Home.vue'
 
 Vue.use(VueRouter); // Router 전역 등록
@@ -12,21 +14,27 @@ const routes = [ // path connection
         name: 'home',
         component: Home
     },
+    // route level code-splitting
+    // this generates a separate chunk (about.[hash].js) for this route
+    // which is lazy-loaded when the route is visited.
     {
         path: '/about',
         name: 'about',
-
-        // route level code-splitting
-        // this generates a separate chunk (about.[hash].js) for this route
-        // which is lazy-loaded when the route is visited.
         component: () => import(/* webpackChunkName: "about" */ '../views/About.vue')
     },
     {
-        path: '/setting',
-        name: 'setting',
-        component: () => import(/* webpackChunkName: "about" */ '../views/Setting.vue')
+        path: '/login',
+        name: 'login',
+        component: () => import('../views/Login.vue')
     },
-    { // with no path = redirect to root
+    {
+        path: '/signup',
+        name: 'signup',
+        component: () => import('../views/Signup.vue')
+    },
+
+    // otherwise redirect to home
+    {
         path: '*',
         redirect: "/"
     }
