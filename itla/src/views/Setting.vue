@@ -12,63 +12,63 @@
 
     <div id = "main_wrap">
         <!--로그인 했을 때-->
-        <div v-if="userID" id ="login_true" style="width: 80%">
+        <div v-if="userID" id ="login_true" style="display: flex;">
             <!--카테고리 선택 항목-->
+                <div id = "category_wrap" style="float: left; width:60%; margin: 0 auto auto;">
+                    <h1>카테고리 편집</h1>
+                    <el-main id = "list"  style="height: 300px; width: 80%">
+                        <el-table
 
-            <div id = "category_wrap">
-                <h1>카테고리 편집</h1>
-                <el-main id = "list"  style="height: 300px">
-                    <el-table
+                                :data="UserCategory.filter(data => !search_target || data.category.toLowerCase().includes(search_target.toLowerCase()))"
+                                height="250"
+                        >
+                            <el-table-column
+                                    prop="category"
+                                    align="center">
+                            </el-table-column>
 
-                            :data="UserCategory.filter(data => !search_target || data.category.toLowerCase().includes(search_target.toLowerCase()))"
-                            height="250"
-                    >
-                        <el-table-column
-                                prop="category"
-                                align="center">
-                        </el-table-column>
+                            <el-table-column align="right">
+                                <template slot="header" slot-scope="scope">
+                                    <div  style = "display: flex">
+                                        <el-input
+                                                auto-complete="true"
+                                                v-model.lazy="search_target"
+                                                size="large"
+                                                placeholder="Type to search"
+                                                style="float: left; width:100%"
 
-                        <el-table-column
-
-                                align="right">
-                            <template slot="header" slot-scope="scope">
-                                <el-input
-                                        auto-complete="true"
-                                        v-model.lazy="search_target"
-                                        size="large"
-                                        placeholder="Type to search"
-                                        style="float: left;"
-                                />
-                                <el-button @click = "Create">create</el-button>
-                            </template>
-                            <template slot-scope="scope">
-                                <el-button
-                                        size="mini"
-                                        @click="Edit(scope.$index, scope.row)">Edit</el-button>
-                                <el-button
-                                        type="danger"
-                                        size="mini"
-                                        @click="Delete(scope.$index, scope.row)">delete</el-button>
+                                        />
+                                        <el-button @click = "Create" style="float: left">create</el-button>
+                                    </div>
+                                </template>
+                                <template slot-scope="scope">
+                                    <el-button
+                                            size="mini"
+                                            @click="Edit(scope.$index, scope.row)">Edit</el-button>
+                                    <el-button
+                                            type="danger"
+                                            size="mini"
+                                            @click="Delete(scope.$index, scope.row)">delete</el-button>
 
 
 
-                            </template>
-                        </el-table-column>
-                    </el-table>
-                </el-main>
-            </div>
-            <div class="clear"></div>
+                                </template>
+                            </el-table-column>
+                        </el-table>
+                    </el-main>
+                </div>
+                <div class="clear"></div>
 
-            <!--비밀번호 변경 항목-->
-            <div id = "change_password">
+                <!--비밀번호 변경 항목-->
+                <div id = "change_password" style="width: 30%; margin: 0 auto auto;">
                 <h1 id = "password_head">비밀번호 변경</h1>
-                <div>
+                <div style="display: flex; padding: auto">
+                    <div style="margin-right: 1%;">
+                        <el-input type="password" v-model="new_password" placeholder="비밀번호는 6자리 이상입니다" show-password style="margin-bottom: 1%"></el-input>
 
-                        비밀번호 <el-input type="password" v-model="new_password" placeholder="비밀번호는 6자리 이상입니다" show-password></el-input>
-
-                    <el-input type="password" v-model="confirm" placeholder = "비밀번호 확인" show-password></el-input>
-
-                    <el-button id = "submit" type = "primary"  @click="confirmingPassword(new_password,confirm)" >비밀번호 변경하기</el-button>
+                        <el-input type="password" v-model="confirm" placeholder = "비밀번호 확인" show-password></el-input>
+                    </div>
+                    <el-button id = "submit" type = "primary"  @click="confirmingPassword(new_password,confirm)" style="width: 20%">확인</el-button>
                 </div>
             </div>
         </div>
@@ -80,6 +80,7 @@
             <p>로그인 해 주십시오</p>
         </div>
     </div>
+
 </template>
 
 <script>
@@ -181,7 +182,8 @@ tr{
     position:absolute;
     top:50%;
     left:50%;
-    transform:translate(-50%, -50%)
+    transform:translate(-50%, -50%);
+    height: 80%; width: 100%;
 }
     .clear{
         clear: both;
