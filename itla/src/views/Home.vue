@@ -1,9 +1,9 @@
 <template>
   <div class="column">
-    <div class="side">
+    <div class="menu">
       <user-menu></user-menu>
     </div>
-    <div class="main">
+    <div class="feedranking">
       <feed-ranking></feed-ranking>
     </div>
   </div>
