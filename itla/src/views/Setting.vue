@@ -16,31 +16,33 @@
             <!--카테고리 선택 항목-->
                 <div id = "category_wrap" style="float: left; width:60%; margin: 0 auto auto;">
                     <h1>카테고리 편집</h1>
-                    <el-main id = "list"  style="height: 300px; width: 80%">
-                        <el-table
+                    <el-main id = "list"  style="height: auto; width: 80%">
 
+
+                            <div  style = "display: flex;margin-bottom: 1%">
+                                <el-input
+                                        auto-complete="true"
+                                        v-model.lazy="search_target"
+                                        size="large"
+                                        placeholder="Type to search"
+                                        style="float: left; width:100%"
+
+                                />
+                                <el-button @click = "Create" style="float: left">create</el-button>
+                            </div>
+
+                        <el-table
+                                header-cell-style="display:none"
+                                empty-text="검색 결과가 없습니다."
                                 :data="UserCategory.filter(data => !search_target || data.category.toLowerCase().includes(search_target.toLowerCase()))"
                                 height="250"
                         >
                             <el-table-column
                                     prop="category"
-                                    align="center">
+                                    align="right">
                             </el-table-column>
 
                             <el-table-column align="right">
-                                <template slot="header" slot-scope="scope">
-                                    <div  style = "display: flex">
-                                        <el-input
-                                                auto-complete="true"
-                                                v-model.lazy="search_target"
-                                                size="large"
-                                                placeholder="Type to search"
-                                                style="float: left; width:100%"
-
-                                        />
-                                        <el-button @click = "Create" style="float: left">create</el-button>
-                                    </div>
-                                </template>
                                 <template slot-scope="scope">
                                     <el-button
                                             size="mini"
@@ -49,8 +51,6 @@
                                             type="danger"
                                             size="mini"
                                             @click="Delete(scope.$index, scope.row)">delete</el-button>
-
-
 
                                 </template>
                             </el-table-column>
@@ -183,7 +183,7 @@ tr{
     top:50%;
     left:50%;
     transform:translate(-50%, -50%);
-    height: 80%; width: 100%;
+    height: 80%; width: 80%;
 }
     .clear{
         clear: both;
