@@ -24,7 +24,7 @@
         <div class="footer">
             <div class="About">
                 <span> <a href="https://www.ele.me" target="_blank" style="text-decoration:none">Based on Element UI</a> </span>
-                <div class="version">Version 0.1</div>
+                <div class="version">Version 0.2</div>
             </div>
         </div>
     </div>

@@ -9,7 +9,6 @@
                         prefix-icon="el-icon-search"/>
                 </div>
             <el-table
-                    default-sort="descending"
                     @cell-click = "sendUrl"
                     empty-text="결과가 없습니다."
                     :data="this.$data.propsdata.filter(data => !search || data.title.toLowerCase().includes(search.toLowerCase()))"
