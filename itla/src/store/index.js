@@ -1,36 +1,34 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-// import axios from 'axios'
 
 Vue.use(Vuex);
 
-// const resourceHost = 'http://localhost:3000';
-
 export const store  = new Vuex.Store({
     state: {
-        loginID: "1000000",
+        loginedID: null,
+        loginedEmail : "",
         feedCategories : [
             "Software", "Hardware", "Technology", "Tips", "Reviews", "Misc"
         ],
     },
     getters: {
-
+        getLoginedID: function (state) {
+            return state.loginedID;
+        },
+        getLoginedEmail: function (state) {
+            return state.loginedEmail;
+        }
     },
     mutations: {
-        // LOGIN (state, {accessToken}) {
-        //     state.accessToken = accessToken
-        // },
-        // LOGOUT (state) {
-        //     state.accessToken = null
-        // }
+        LOGIN (state, payload) {
+            state.loginedID = payload.id;
+            state.loginedEmail = payload.email;
+        },
+        LOGOUT (state) {
+            state.loginedID = null;
+        }
     },
     actions: {
-        // LOGIN ({commit}, {email, password}) {
-        //     return axios.post(`${resourceHost}/login`, {email, password})
-        //         .then(({data}) => commit('LOGIN', data))
-        // },
-        // LOGOUT ({commit}) {
-        //     commit('LOGOUT')
-        // },
+
     }
-});
+} );

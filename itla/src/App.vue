@@ -5,6 +5,8 @@
                 <i class="el-icon-info"></i>
                 ITLA.com
             </h1>
+            <p v-if="loginCheck"> Greetings, {{getLoginedEmail}}! </p>
+            <p v-else> Please Login first. </p>
         </div>
         <div id="nav">
             <el-menu
@@ -32,9 +34,32 @@
 
 
 <script>
+    import { mapState } from 'vuex';
+    import { mapGetters } from 'vuex';
+    import { mapMutations } from 'vuex';
+    import { mapActions } from 'vuex';
+
     export default {
         name: "App",
+
+        computed: {
+            ...mapState([
+                'loginedID', 'loginedEmail', 'feedCategories'
+            ]),
+            ...mapGetters([
+                'getLoginedID', 'getLoginedEmail'
+            ]),
+            loginCheck() {
+                return this.$store.getters.getLoginedID != null;
+            }
+        },
         methods: {
+            ...mapMutations([
+                'LOGIN', 'LOGOUT'
+            ]),
+            ...mapActions([
+
+            ]),
             handleSelect(key, keyPath) {
                 console.log(key, keyPath); // Debug
             }
