@@ -4,37 +4,22 @@
       "id": 1,
       "email": "test@test.com",
       "password": "123456",
-      "usercategory": [
-        "Cat 1",
-        "Cat 2",
-        "Cat 3"
+      "ratings": [
+        {
+          "id": 1,
+          "value": ""
+        },
+        {
+          "id": 2,
+          "value": ""
+        }
       ]
     },
     {
       "id": 2,
-      "email": "hello@alpha.net",
-      "password": "123456",
-      "usercategory": [
-        "Cat X1",
-        "Cat X2",
-        "Cat X3"
-      ]
-    },
-    {
-      "id": 3,
-      "email": "kevinna95@gmail.com",
-      "password": "123456",
-      "usercategory": [
-        "News",
-        "New Products",
-        "Day by Day"
-      ]
-    },
-    {
-      "id": 4,
       "email": "admin@itla.com",
       "password": "123456",
-      "usercategory": []
+      "ratings": []
     }
   ]
 }

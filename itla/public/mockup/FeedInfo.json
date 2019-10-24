@@ -1,0 +1,12 @@
+{
+  "feeds": [
+    {
+      "id": 1,
+      "madeBy" : 0,
+      "date" : "2000-01-01",
+      "title" : "test Title",
+      "category" : 0,
+      "url" : "http://www.daum.net"
+    }
+  ]
+}
