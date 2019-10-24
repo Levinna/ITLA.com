@@ -11,7 +11,7 @@
 <template>
     <div id="main_wrap">
         <!--로그인 했을 때-->
-        <div v-if="login_state" id="login_true" style="display: flex;">
+        <div id="login_true" style="display: flex;">
             <!--카테고리 선택 항목-->
 
             <div id="category_wrap" style="float: left; width:50%;">
@@ -75,11 +75,11 @@
         </div>
 
 
-        <!--로그인 하지 않았을 떄-->
-        <div v-else id="login_false">
-            <img src="https://www.freeiconspng.com/uploads/error-icon-4.png" width="300" height="300">
-            <p>로그인 해 주십시오</p>
-        </div>
+<!--        &lt;!&ndash;로그인 하지 않았을 떄&ndash;&gt;-->
+<!--        <div id="login_false">-->
+<!--            <img src="https://www.freeiconspng.com/uploads/error-icon-4.png" width="300" height="300">-->
+<!--            <p>로그인 해 주십시오</p>-->
+<!--        </div>-->
     </div>
 
 </template>

@@ -10,7 +10,7 @@ Vue.use(VueRouter); // Router 전역 등록
 
 const routes = [ // path connection
     {  // 이동하는 방법은 path로 이동, name으로 이동하는 방법 2가지가 있음.
-        path: '/',
+        path: '/home',
         name: 'home',
         component: Home
     },
@@ -50,7 +50,7 @@ const routes = [ // path connection
     // otherwise redirect to home
     {
         path: '*',
-        redirect: "/"
+        redirect: "/home"
     }
 ];
 

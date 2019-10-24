@@ -1,7 +1,9 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
+import axios from 'axios'
 
 Vue.use(Vuex);
+const resourceHost = 'http://localhost:3000';
 
 export const store  = new Vuex.Store({
     state: {
@@ -29,6 +31,19 @@ export const store  = new Vuex.Store({
         }
     },
     actions: {
-
+        LOGIN ({commit}, {id, email}) {
+            commit('LOGIN');
+            return axios.post(`${resourceHost}/login`, {id, email})
+                .then(({data}) => commit('LOGIN', data))
+        },
+        LOGOUT ({commit}) {
+            commit('LOGOUT');
+            return axios.delete(`${resourceHost}/login`)
+                .then(resp => {
+                    console.log(resp.data)
+                }).catch(error => {
+                    console.log(error);
+                });
+        },
     }
 } );

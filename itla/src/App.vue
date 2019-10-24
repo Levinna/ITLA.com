@@ -17,8 +17,10 @@
                     text-color="#fff"
                     active-text-color="#ffd04b">
                 <el-menu-item index="1"> <router-link to="/home" style="text-decoration: none">Home</router-link> </el-menu-item>
-                <el-menu-item index="2"> <router-link to="/login" style="text-decoration: none">Login</router-link> </el-menu-item>
-                <el-menu-item index="3"> <router-link to="/setting" style="text-decoration: none">Setting</router-link> </el-menu-item>
+                <el-menu-item index="2" v-if="loginCheck"> <a style="text-decoration: none" @click.stop="logout" >Logout</a> </el-menu-item>
+                <el-menu-item index="2" v-else> <router-link to="/login" style="text-decoration: none">Login</router-link> </el-menu-item>
+                <el-menu-item index="3" disabled> Setting </el-menu-item>
+<!--                <router-link to="/setting" style="text-decoration: none">Setting</router-link>-->
                 <el-menu-item index="4"> <router-link to="/about" style="text-decoration:none">About</router-link> </el-menu-item>
             </el-menu>
         </div>
@@ -62,6 +64,11 @@
             ]),
             handleSelect(key, keyPath) {
                 console.log(key, keyPath); // Debug
+            },
+            logout() {
+                // LOGOUT 변이 실행
+                this.$store.commit('LOGOUT');
+                //this.$store.dispatch('LOGOUT');
             }
         }
     }

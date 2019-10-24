@@ -1,43 +1,38 @@
 {
+  "loginStatus": [
+  ],
   "users": [
     {
       "id": 1,
       "email": "test@test.com",
       "password": "123456",
-      "ratings": [
-        {
-          "id": 1,
-          "value": ""
-        },
-        {
-          "id": 2,
-          "value": ""
-        }
-      ]
+      "ratings": []
     },
     {
       "id": 2,
-      "email": "admin@itla.com",
+      "email": "abc@naver.com",
       "password": "123456",
       "ratings": []
     }
   ],
   "feeds": [
     {
-      "category": "1",
-      "title": "사람이 졸린 이유",
+      "category": "3",
+      "title": "TEST",
       "date": "2019-10-25",
-      "url": "google.ca",
+      "url": "http://www.daum.net",
       "rate": null,
-      "id": 7
+      "madeBy": null,
+      "id": 1
     },
     {
       "category": "2",
-      "title": "CoolEnjoy",
-      "date": "2019-10-25",
-      "url": "cooln.kr",
+      "title": "1111",
+      "date": "2019-10-10",
+      "url": "http://google.com",
       "rate": null,
-      "id": 8
+      "madeBy": 1,
+      "id": 2
     }
   ]
 }

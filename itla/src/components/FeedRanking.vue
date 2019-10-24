@@ -108,7 +108,6 @@
         name: "FeedRanking",
         data() {
             return {
-                loginID:"",
                 props_feed_data:[ ],
                 props_user_data:[],
                 options: [{
@@ -138,7 +137,7 @@
                     title: '',
                     date: '',
                     url: '',
-                    rate:null,
+                    rate: null,
                 },
                 search: '',
             }
@@ -166,6 +165,9 @@
                 this.$data.reader_web_info = row;
             },
             Create(){
+                let madeBy = this.$store.getters.getLoginedID;
+                this.$data.form = {...this.$data.form, madeBy};
+                this.$data.form.url = "http://" + this.$data.form.url;
                 this.$data.dialogFormVisible = false;
                 axios.post(baseURL_feed, this.$data.form);
                 this.$data.form = {category:'',date: '',title: '', url: '',rate:'',madeBy:''};
