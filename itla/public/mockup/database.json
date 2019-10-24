@@ -24,12 +24,19 @@
   ],
   "feeds": [
     {
-      "id": 1,
-      "madeBy": 0,
-      "date": "2000-01-01",
-      "title": "test Title",
-      "category": 0,
-      "url": "http://www.daum.net"
+      "date": "2019-10-16",
+      "title": "new",
+      "url": "google.ca",
+      "rate": null,
+      "id": 6
+    },
+    {
+      "category": "1",
+      "title": "사람이 졸린 이유",
+      "date": "2019-10-25",
+      "url": "google.ca",
+      "rate": null,
+      "id": 7
     }
   ]
 }

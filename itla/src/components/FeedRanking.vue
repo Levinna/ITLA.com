@@ -1,5 +1,5 @@
 <template>
-    <div style="display: flex; margin: auto; height: 35em ">
+    <div style="display: flex; margin: auto; height: 35em">
         <div id = "feeds" style="float: left; width:35%; height: 100%">
             <div>
                 <el-input v-model="search"
@@ -9,6 +9,7 @@
                         prefix-icon="el-icon-search"/>
                 </div>
             <el-table
+                    @load="console.log(this.data)"
                     @cell-click = "sendUrl"
                     empty-text="결과가 없습니다."
                     :data="this.$data.propsdata.filter(data => !search || data.title.toLowerCase().includes(search.toLowerCase()))"
@@ -54,21 +55,27 @@
                     style="width: 100%; position: absolute;bottom: -2.5em; left: 0"><span style="font-size: 130%">Add</span></el-button>
                 <el-dialog title="피드 추가" :visible.sync="dialogFormVisible">
                     <el-form :model="form">
+                        <el-form-item label="Category" :label-width="formLabelWidth" style="width:100%">
+                            <el-select v-model="form.category" placeholder="Select" style="width:100%">
+                                <el-option
+                                        v-for="item in options"
+                                        :key="item.value"
+                                        :label="item.label"
+                                        :value="item.value">
+                                </el-option>
+                            </el-select>
+                        </el-form-item>
+                        <el-form-item label="Title" :label-width="formLabelWidth">
+                            <el-input v-model="form.title" autocomplete="off"></el-input>
+                        </el-form-item>
                         <el-form-item label="Date" :label-width="formLabelWidth">
-
                             <el-date-picker
                                     v-model="form.date"
                                     placeholder="날짜"
                                     value-format = "yyyy-MM-dd"
                                     style="width:100%">
                             </el-date-picker>
-
                         </el-form-item>
-
-                        <el-form-item label="Title" :label-width="formLabelWidth">
-                            <el-input v-model="form.title" autocomplete="off"></el-input>
-                        </el-form-item>
-
                         <el-form-item label="Url" :label-width="formLabelWidth">
                             <el-input placeholder="Please input" v-model="form.url">
                                 <template slot="prepend">Http://</template>
@@ -93,21 +100,55 @@
 <script>
     import FeedReader from "./Feedreader";
     import axios from 'axios'; // import axios for Communication with json
-    import {baseURL_feeds} from "../main";
+    import {baseURL_feed} from "../main";
 
     export default {
 
         name: "FeedRanking",
         data() {
             return {
-                propsdata:""
-                ,
+                propsdata:"",
+                logindata:{
+                    "id": 1,
+                    "email": "test@test.com",
+                    "password": "123456",
+                    "ratings": [
+                        {
+                            "id": 1,
+                            "value": ""
+                        },
+                        {
+                            "id": 2,
+                            "value": ""
+                        }
+                    ]
+                },
+                options: [{
+                    value: '0',
+                    label: 'Software'
+                }, {
+                    value: '1',
+                    label: 'Hardware'
+                }, {
+                    value: '2',
+                    label: 'Technology'
+                }, {
+                    value: '3',
+                    label: 'Tips'
+                }, {
+                    value: '4',
+                    label: 'Reviews'
+                }, {
+                    value: '5',
+                    label: 'Misc'
+                }],
                 formLabelWidth: '120px',
                 dialogFormVisible: false,
                 reader_web_info :"",
                 form: {
-                    date: '',
+                    category:'',
                     title: '',
+                    date: '',
                     url: '',
                     rate:null,
                 },
@@ -120,7 +161,14 @@
         methods: {
 
             handleDelete(index, row) {
-                this.$data.propsdata.splice(index,1);
+
+                let target_url = 'http://localhost:3000/feeds/'+ row.id;
+                axios.delete(target_url)
+                    .then(resp => {
+                        console.log(resp.data)
+                    }).catch(error => {
+                    console.log(error);
+                });
                 this.$data.reader_web_info = null;
             },
             sendUrl(row,column,e){
@@ -129,17 +177,19 @@
             },
             Create(){
                 this.$data.dialogFormVisible = false;
-                this.$data.propsdata.push(this.$data.form);
-                this.$data.form = {date: '',title: '', url: '',rate:'',};
-
+                axios.post(baseURL_feed, this.$data.form);
+                this.$data.form = {category:'',date: '',title: '', url: '',rate:'',};
             },
 
         },
-        computed:{
-            create() {
-                this.$data.propsdata = axios.get(baseURL_user);
+        async created() {
+            try {
+                const res = await axios.get(baseURL_feed);
+                this.propsdata = res.data;
+            } catch(e) {
+                console.error(e)
             }
-        }
+        },
 
     }
 
