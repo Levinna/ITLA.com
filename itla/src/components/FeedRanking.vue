@@ -9,10 +9,10 @@
                         prefix-icon="el-icon-search"/>
                 </div>
             <el-table
-                    @load="console.log(this.data)"
+
                     @cell-click = "sendUrl"
                     empty-text="결과가 없습니다."
-                    :data="this.$data.propsdata.filter(data => !search || data.title.toLowerCase().includes(search.toLowerCase()))"
+                    :data="this.$data.props_feed_data.filter(data => !search || data.title.toLowerCase().includes(search.toLowerCase()))"
                     style="width: 100%;"
                     height="88%">
 
@@ -37,7 +37,9 @@
                         width="100%"
                         align="right">
                     <template slot-scope="scope">
+                        <!--disabled = "props_user_data.rating[i].id == "-->
                         <el-button
+                                disabled
                                 icon = "el-icon-delete-solid"
                                 size="mini"
                                 type="danger"
@@ -101,28 +103,16 @@
     import FeedReader from "./Feedreader";
     import axios from 'axios'; // import axios for Communication with json
     import {baseURL_feed} from "../main";
+    import {baseURL_user} from "../main";
 
     export default {
 
         name: "FeedRanking",
         data() {
             return {
-                propsdata:[ ],
-                logindata:{
-                    "id": 1,
-                    "email": "test@test.com",
-                    "password": "123456",
-                    "ratings": [
-                        {
-                            "id": 1,
-                            "value": ""
-                        },
-                        {
-                            "id": 2,
-                            "value": ""
-                        }
-                    ]
-                },
+                loginID:"",
+                props_feed_data:[ ],
+                props_user_data:[],
                 options: [{
                     value: '0',
                     label: 'Software'
@@ -141,7 +131,7 @@
                 }, {
                     value: '5',
                     label: 'Misc'
-                }],
+                }], //추가할 때 카테고리 선택하려면 필요함
                 formLabelWidth: '120px',
                 dialogFormVisible: false,
                 reader_web_info :"",
@@ -159,7 +149,9 @@
           FeedReader,
         },
         methods: {
-
+            log(inp){
+                console.log(inp);
+            },
             handleDelete(index, row) {
 
                 let target_url = 'http://localhost:3000/feeds/'+ row.id;
@@ -173,27 +165,31 @@
             },
             sendUrl(row,column,e){
                 this.$data.reader_web_info = row;
-                console.log(row)
             },
             Create(){
                 this.$data.dialogFormVisible = false;
                 axios.post(baseURL_feed, this.$data.form);
                 this.$data.form = {category:'',date: '',title: '', url: '',rate:'',};
+
             },
 
             makeCategory () {
                 let temp = -1;
-                for(let feedsCount = 0; feedsCount < this.propsdata.length ; feedsCount++){
-                    temp = parseInt(this.propsdata[feedsCount].category);
-                    this.propsdata[feedsCount].category = this.$store.state.feedCategories[temp];
+                for(let feedsCount = 0; feedsCount < this.props_feed_data.length ; feedsCount++){
+                    temp = parseInt(this.props_feed_data[feedsCount].category);
+                    this.props_feed_data[feedsCount].category = this.$store.state.feedCategories[temp];
                 }
             }
         },
         async created() {
             try {
                 const res = await axios.get(baseURL_feed);
-                this.propsdata = res.data;
+                this.props_feed_data = res.data;
                 this.makeCategory();
+
+                const res2 = await axios.get(baseURL_user);
+                this.props_user_data = res2.data;
+                this.$data.loginID = this.$store.state.loginID;
             } catch(e) {
                 console.error(e)
             }
