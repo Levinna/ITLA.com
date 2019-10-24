@@ -4,7 +4,7 @@
             <h2>Login</h2>
             <el-form class="loginForm" :model="loginModel" :rules="loginRules" ref="form" @submit.native.prevent="login">
                 <el-form-item prop="email">
-                    <el-input v-model="loginModel.email" placeholder="E-mail" prefix-icon="el-icon-user"></el-input>
+                    <el-input v-model="loginModel.email" placeholder="E-mail" prefix-icon="el-icon-user" ></el-input>
                 </el-form-item>
                 <el-form-item prop="password">
                     <el-input v-model="loginModel.password" placeholder="Password" type="password" prefix-icon="el-icon-lock"></el-input>
@@ -21,15 +21,13 @@
 </template>
 
 <script>
+    import loginStates from "../../public/mockup/AccountInfo";
     export default {
         name: "Login",
         data() {
             return {
                 loading : false,
-                validCredentials: { // get Valid credential from json file later
-                    email: "test@test.com",
-                    password: "123456"
-                },
+                credential : false,
                 loginModel : {
                     email : "",
                     password : ""
@@ -47,8 +45,16 @@
             }
         },
 
-        methods: {
+        created: function () {
+          // console.log("loginCred",loginStates);
+          // console.log("IDCOUNT", loginStates.users[0].email);
+          // for(let testCount in loginStates.users){
+          //     console.log("TST2",testCount);
+          // }
+          // console.log("IDCOUNT2", loginStates.users.length);
+        },
 
+        methods: {
             simulateLogin() {
                 return new Promise(resolve => {
                     setTimeout(resolve, 500);
@@ -59,16 +65,34 @@
                 if (!valid) {
                     return;
                 }
+
                 this.loading = true;
                 await this.simulateLogin();
                 this.loading = false;
-                if (this.loginModel.email === this.validCredentials.email &&
-                    this.loginModel.password === this.validCredentials.password) {
-                    this.$message.success("Login successfull");
-                    await this.$router.push("/home"); // to Home
-                } else {
-                    this.$message.error("Some information you provided is invalid. Please Try Again.");
+
+                for(let userCount = 0 ; userCount < loginStates.users.length; userCount++){
+                    // console.log("COUNTING", loginStates.users[userCount].email);
+                    if(this.loginModel.email === loginStates.users[userCount].email && this.loginModel.password === loginStates.users[userCount].password){
+                        this.credential = true;
+                        await this.$router.push("/home"); // to Home
+                        break;
+                    }
+                    else{
+                        this.credential = false;
+                    }
                 }
+                if(this.credential)
+                    this.$message.success("Login successfull");
+                else
+                    this.$message.error("Some information you provided is invalid. Please Try Again.");
+
+                // if (this.loginModel.email === this.validCredentials.email &&
+                //     this.loginModel.password === this.validCredentials.password) {
+                //     this.$message.success("Login successfull");
+                //     await this.$router.push("/home"); // to Home
+                // } else {
+                //     this.$message.error("Some information you provided is invalid. Please Try Again.");
+                // }
             },
             trySignup() {
                 //Transition to Signup

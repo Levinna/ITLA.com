@@ -7,7 +7,7 @@
                     <el-input v-model="signupForm.email" placeholder="E-mail" prefix-icon="el-icon-user"></el-input>
                 </el-form-item>
                 <el-form-item prop="password">
-                    <el-input type="password" v-model="signupForm.pass" placeholder="Password" prefix-icon="el-icon-lock" autocomplete="off"></el-input>
+                    <el-input type="password" v-model="signupForm.password" placeholder="Password" prefix-icon="el-icon-lock" autocomplete="off"></el-input>
                 </el-form-item>
                 <el-form-item prop="checkPass">
                     <el-input type="password" v-model="signupForm.checkPass" placeholder="confirm Password" prefix-icon="el-icon-check" autocomplete="off"></el-input>

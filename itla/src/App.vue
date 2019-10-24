@@ -16,13 +16,13 @@
                     active-text-color="#ffd04b">
                 <el-menu-item index="1"> <router-link to="/home" style="text-decoration: none; display:block; width:100%; height:100%">Home</router-link> </el-menu-item>
                 <el-menu-item index="2"> <router-link to="/login" style="text-decoration: none">Login</router-link> </el-menu-item>
-                <el-menu-item index="3"> <a href="https://www.ele.me" target="_blank" style="text-decoration:none">Ref</a> </el-menu-item>
+                <el-menu-item index="3"> <router-link to="/about" style="text-decoration:none">About</router-link> </el-menu-item>
             </el-menu>
         </div>
         <router-view></router-view>
         <div class="footer">
             <div class="About">
-                <span><router-link to="/about" style="text-decoration:none" :click="handleSelect" index="4">About</router-link></span>
+                <span> <a href="https://www.ele.me" target="_blank" style="text-decoration:none">Based on Element UI</a> </span>
                 <div class="version">Version 0.1</div>
             </div>
         </div>
@@ -71,7 +71,7 @@
     }
 
     .main-menu li {
-        width:33%;
+        width:25%;
         font-size:20px;
     }
 
