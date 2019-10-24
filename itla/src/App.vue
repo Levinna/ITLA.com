@@ -1,7 +1,7 @@
 <template>
     <div id="app">
         <div class="header">
-            <h1 class="sitename">
+            <h1 class="sitename" @click="$router.push('/home')" style="cursor: pointer">
                 <i class="el-icon-info"></i>
                 ITLA.com
             </h1>
@@ -14,9 +14,10 @@
                     background-color="#545c64"
                     text-color="#fff"
                     active-text-color="#ffd04b">
-                <el-menu-item index="1"> <router-link to="/home" style="text-decoration: none; display:block; width:100%; height:100%">Home</router-link> </el-menu-item>
+                <el-menu-item index="1"> <router-link to="/home" style="text-decoration: none">Home</router-link> </el-menu-item>
                 <el-menu-item index="2"> <router-link to="/login" style="text-decoration: none">Login</router-link> </el-menu-item>
-                <el-menu-item index="3"> <router-link to="/about" style="text-decoration:none">About</router-link> </el-menu-item>
+                <el-menu-item index="3"> <router-link to="/setting" style="text-decoration: none">Setting</router-link> </el-menu-item>
+                <el-menu-item index="4"> <router-link to="/about" style="text-decoration:none">About</router-link> </el-menu-item>
             </el-menu>
         </div>
         <router-view></router-view>
@@ -33,11 +34,6 @@
 <script>
     export default {
         name: "App",
-        data() {
-            return {
-                currentIndex : '1', // to prevent Navigation Duplicate
-            }
-        },
         methods: {
             handleSelect(key, keyPath) {
                 console.log(key, keyPath); // Debug

@@ -42,7 +42,11 @@ const routes = [ // path connection
         name: 'feedranking',
         component: () =>import('../components/FeedRanking.vue')
     },
-
+    {
+        path: '/setting',
+        name: 'setting',
+        component: () =>import('../views/Setting.vue')
+    },
     // otherwise redirect to home
     {
         path: '*',

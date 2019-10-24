@@ -1,11 +1,11 @@
 <template>
-    <div class="home">
+    <el-main class="home">
         <main>
             <div class="feedranking">
                 <feed-ranking></feed-ranking>
             </div>
         </main>
-    </div>
+    </el-main>
 </template>
 
 <script>
@@ -18,7 +18,9 @@
     export default {
         name: 'home',
         data() {
-            return {}
+            return {
+
+            }
         },
         components: {
             FeedRanking
@@ -36,4 +38,7 @@
   .feedranking {
     padding : 1%;
   }
+    .home{
+        margin:1%;
+    }
 </style>
