@@ -92,82 +92,16 @@
 
 <script>
     import FeedReader from "./Feedreader";
-
+    import axios from 'axios'; // import axios for Communication with json
+    import {baseURL_feeds} from "../main";
 
     export default {
 
         name: "FeedRanking",
         data() {
             return {
-                propsdata:[{
-                    date: '2019-11-24',
-                    title: '기계가 사람을 뽑는 AI채용시대',
-                    address: 'No. 189, Grove St, Los Angeles',
-                    url:"https://brunch.co.kr/@yooncohg/141",
-                    rate:0,
-                },{
-                    date: '2019-11-24',
-                    title: '롤드컵이 독서에 미치는 영향',
-                    address: 'No. 189, Grove St, Los Angeles',
-                    url:"https://brunch.co.kr/@ssmile777/64",
-                    rate:0,
-                },{
-                        date: '2019-11-24',
-                        title: '블록체인은 닷컴 버블과 다르다',
-                        address: 'No. 189, Grove St, Los Angeles',
-                        url:"https://brunch.co.kr/@noder/14",
-                        rate:0,
-                 },{
-                    date: '2019-11-24',
-                    title: '아마존의 핵심, MSA를 따라가다',
-                    address: 'No. 189, Grove St, Los Angeles',
-                    url:"https://brunch.co.kr/@beennote/186",
-                    rate:0,
-                },
-                    {
-                    date: '2019-11-24',
-                    title: '인공지능 시대의 건축과 도시',
-                    address: 'No. 189, Grove St, Los Angeles',
-                    url:"https://brunch.co.kr/@kimsungah/5",
-                    rate:0,
-                 }, {
-                    date: '2019-11-24',
-                    title: '구글 픽셀 4 수령기',
-                    address: 'No. 189, Grove St, Los Angeles',
-                    url:"https://brunch.co.kr/@minseungsong/43",
-                    rate:0,
-                }, {
-                    date: '2019-11-16',
-                    title: '[코딩 부트캠프] 좌절이 찾아올 때',
-                    address: 'No. 189, Grove St, Los Angeles',
-                    url:"https://brunch.co.kr/@byuldbyul/29",
-                    rate:0,
-                 }, {
-                    date: '2019-09-25',
-                    title: 'LINE 개발자 3인의 파이콘 2019 방문기',
-                    address: 'No. 189, Grove St, Los Angeles',
-                    url:"https://engineering.linecorp.com/ko/blog/pycon-korea-2019/",
-                    rate:0,
-                }, {
-                    date: '2019-09-23',
-                    title: '파이콘 2019 부스&굿즈 제작기',
-                    address: 'No. 189, Grove St, Los Angeles',
-                    url:"https://brunch.co.kr/@sundayoff/38",
-                    rate:0,
-                }, {
-                    date: '2019-07-24',
-                    title: 'ECMA6 is changing our coding style',
-                    address: 'No. 189, Grove St, Los Angeles',
-                    url:"https://medium.com/@arunrajeevan/ecma6-is-changing-our-coding-style-70a42b86b567",
-                    rate:0,
-                }, {
-                    date: '2018-1-15',
-                    title: '스팀잇  후기',
-                    address: 'No. 189, Grove St, Los Angeles',
-                    url:"https://brunch.co.kr/@byuldbyul/29",
-                    rate:0,
-                  },
-                ],
+                propsdata:""
+                ,
                 formLabelWidth: '120px',
                 dialogFormVisible: false,
                 reader_web_info :"",
@@ -196,12 +130,16 @@
             Create(){
                 this.$data.dialogFormVisible = false;
                 this.$data.propsdata.push(this.$data.form);
-                console.log(this.$data.form)
                 this.$data.form = {date: '',title: '', url: '',rate:'',};
 
             },
 
         },
+        computed:{
+            create() {
+                this.$data.propsdata = axios.get(baseURL_user);
+            }
+        }
 
     }
 

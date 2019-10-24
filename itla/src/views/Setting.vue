@@ -11,7 +11,7 @@
 <template>
     <div id="main_wrap">
         <!--로그인 했을 때-->
-        <div v-if="userID" id="login_true" style="display: flex;">
+        <div v-if="login_state" id="login_true" style="display: flex;">
             <!--카테고리 선택 항목-->
 
             <div id="category_wrap" style="float: left; width:50%;">
@@ -94,7 +94,6 @@
         data() {
             return {
                 process_state: "primary",
-                userID: 1,
                 search_target: "",
                 confirm: "",
                 new_password: "",
