@@ -1,7 +1,9 @@
 <template>
     <div style="display: flex; margin: auto">
         <div id = "feeds" style="float: left; width:35% ;">
-            <el-table @cell-click = "sendUrl"
+            <el-table
+                    @cell-click = "sendUrl"
+                    empty-text="결과가 없습니다."
                     :data="this.$data.propsdata.filter(data => !search || data.title.toLowerCase().includes(search.toLowerCase()))"
                     style="width: 100%;"
                     height="70vh">
@@ -141,11 +143,4 @@
 </script>
 
 <style scoped>
-    .feed {
-        display:flex;
-    }
-    .feedLeft {
-        float:left;
-        width:50%;
-    }
 </style>

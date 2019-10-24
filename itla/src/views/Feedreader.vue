@@ -11,7 +11,7 @@
                     <div class="block" style="display: inline; text-align: center">
                         <el-rate v-model="props.rate"></el-rate>
                     </div>
-                    <i class="el-icon-star-off" slot="reference"></i>
+                    <i :class="star_class" slot="reference" @mouseover="on" @mouseleave= "off"></i>
                 </el-popover>
 
             </div>
@@ -30,9 +30,17 @@
         props: ['props'],
         data() {
             return {
-
+                star_class : "el-icon-star-off"
             }
         },
+        methods:{
+            on(){
+                this.$data.star_class = "el-icon-star-on";
+            },
+            off(){
+                this.$data.star_class = "el-icon-star-off";
+            }
+        }
     }
 </script>
 
@@ -40,5 +48,4 @@
     #title{
 
     }
-
 </style>
