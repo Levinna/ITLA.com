@@ -31,6 +31,16 @@ const routes = [ // path connection
         path: '/signup',
         name: 'signup',
         component: () => import('../views/Signup.vue')
+    },    {
+        path: '/feedreader',
+        name: 'feedreader',
+        component: () =>import('../views/Feedreader.vue')
+
+    },
+    {
+        path: '/feedranking',
+        name: 'feedranking',
+        component: () =>import('../components/FeedRanking.vue')
     },
 
     // otherwise redirect to home
