@@ -1,7 +1,7 @@
 <template>
-    <div id = "reader_wrapper"  style = "background: wheat; padding: 1px">
+    <div id = "reader_wrapper"  style = "background: white; padding: 1px">
         <div>
-            <div id = "title" style="font-size: 40px; text-align: center; display: inline">
+            <div id = "title" style="font-size: 35px; text-align: center; display: inline">
 
                 {{props.title}}
                 <el-popover
@@ -20,7 +20,7 @@
         </div>
 
         <div style="clear: both"></div>
-        <iframe v-bind:src="props.url" style=" width:98%; height: 90%; margin:auto; overflow:hidden;"></iframe>
+        <iframe v-bind:src="props.url" style=" width:98%; height: 88%; margin:auto; overflow:hidden;"></iframe>
     </div>
 </template>
 

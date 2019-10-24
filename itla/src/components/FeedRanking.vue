@@ -1,16 +1,25 @@
 <template>
-    <div style="display: flex; margin: auto; height: 41em ">
+    <div style="display: flex; margin: auto; height: 35em ">
         <div id = "feeds" style="float: left; width:35%; height: 100%">
+            <div>
+                <el-input v-model="search"
+                        size="nomal"
+                        placeholder="Type to search"
+                        style="height: 6%"
+                        prefix-icon="el-icon-search"/>
+                </div>
             <el-table
+                    default-sort="descending"
                     @cell-click = "sendUrl"
                     empty-text="결과가 없습니다."
                     :data="this.$data.propsdata.filter(data => !search || data.title.toLowerCase().includes(search.toLowerCase()))"
                     style="width: 100%;"
-                    height="100%">
+                    height="88%">
+
                 <el-table-column
                         width="120%"
-                        label="Date"
-                        prop="date">
+                        label="category"
+                        prop="category">
                 </el-table-column>
                 <el-table-column
                         width="280%"
@@ -18,32 +27,43 @@
                         prop="title">
                 </el-table-column>
                 <el-table-column
+
+                        sortable
+                        width="120%"
+                        label="Date"
+                        prop="date">
+                </el-table-column>
+                <el-table-column
+                        width="100%"
                         align="right">
-                    <template slot="header" slot-scope="scope">
-                        <el-input
-                                v-model="search"
-                                size="mini"
-                                placeholder="Type to search"/>
-                    </template>
                     <template slot-scope="scope">
                         <el-button
+                                icon = "el-icon-delete-solid"
                                 size="mini"
                                 type="danger"
-                                @click.stop="handleDelete(scope.$index, scope.row)">Delete</el-button>
+                                style="height: 6%"
+                                @click.stop="handleDelete(scope.$index, scope.row)"></el-button>
                     </template>
                 </el-table-column>
 
             </el-table>
             <div id ="add_button" style="position: relative">
                 <el-button
-                    size="small"
+                    size="mini"
                     type="primary"
                     @click.stop = "dialogFormVisible = true"
-                    style="width: 100%; position: absolute;bottom: -3em; left: 0"><span style="font-size: 130%">Add</span></el-button>
+                    style="width: 100%; position: absolute;bottom: -2.5em; left: 0"><span style="font-size: 130%">Add</span></el-button>
                 <el-dialog title="피드 추가" :visible.sync="dialogFormVisible">
                     <el-form :model="form">
                         <el-form-item label="Date" :label-width="formLabelWidth">
-                            <el-input type = "date" v-model="form.date" autocomplete="off"></el-input>
+
+                            <el-date-picker
+                                    v-model="form.date"
+                                    placeholder="날짜"
+                                    value-format = "yyyy-MM-dd"
+                                    style="width:100%">
+                            </el-date-picker>
+
                         </el-form-item>
 
                         <el-form-item label="Title" :label-width="formLabelWidth">
@@ -55,7 +75,6 @@
                                 <template slot="prepend">Http://</template>
                             </el-input>
                         </el-form-item>
-
                     </el-form>
                     <span slot="footer" class="dialog-footer">
                         <el-button @click="dialogFormVisible = false">Cancel</el-button>
@@ -173,11 +192,12 @@
             },
             sendUrl(row,column,e){
                 this.$data.reader_web_info = row;
-                console.log(this.$data);
+                console.log(row)
             },
             Create(){
                 this.$data.dialogFormVisible = false;
                 this.$data.propsdata.push(this.$data.form);
+                console.log(this.$data.form)
                 this.$data.form = {date: '',title: '', url: '',rate:'',};
 
             },
