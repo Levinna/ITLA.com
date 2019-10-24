@@ -3,6 +3,7 @@ import ElementUI from 'element-ui'; // import element-ui
 import 'element-ui/lib/theme-chalk/index.css'; // import element-ui (CSS)
 
 import router from './router/index'
+import {store} from './store/index'
 import App from './App.vue'
 
 Vue.config.productionTip = false;
@@ -14,6 +15,7 @@ export const baseURL_feed = "http://localhost:3000/feeds"; // for retrieving the
 
 new Vue({
   router,
+  store,
   render: h => h(App)
 }).$mount('#app');
 

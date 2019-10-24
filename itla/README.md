@@ -23,7 +23,7 @@ npm install -g json-server
 ### Run the json-server with appropriate files
 this project needs some json files (in /public/mockup)
 ```
-json-server --watch ./public/mockup/*.json
+npm run local-server (type this in new terminal)
 ```
 
 ### Customize configuration
