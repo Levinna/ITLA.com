@@ -87,6 +87,12 @@
                         // console.log("COUNTING", this.credentials[userCount].email);
                         if(this.loginModel.email === this.credentials[userCount].email && this.loginModel.password === this.credentials[userCount].password){
                             this.credential = true;
+                            // Login Session
+                            this.$store.commit('LOGIN', { id : this.credentials[userCount].id,
+                                email : this.credentials[userCount].email
+                                }
+                            );
+                            //
                             await this.$router.push("/home"); // to Home
                             break;
                         }

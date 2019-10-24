@@ -13,7 +13,6 @@
             <!--sendUrl은 reader에 보내는 props인 reader_web_info 값을 변경하는 함수 -->
             <!--피드들 불러와서 보여주는 부분-->
             <el-table
-
                     @cell-click = "sendUrl"
                     empty-text="결과가 없습니다."
                     :data="this.$data.props_feed_data.filter(data => !search || data.title.toLowerCase().includes(search.toLowerCase()))"
@@ -45,7 +44,6 @@
                     <template slot-scope="scope">
                         <!--삭제 버튼 관련 부분-->
                         <el-button
-                                v-if="parseInt(scope.row.madeBy) !== parseInt(loginID)"
                                 icon = "el-icon-delete-solid"
                                 size="mini"
                                 type="danger"
@@ -162,31 +160,32 @@
                 search: '',
             }
         },
-        components:{
-          FeedReader,
-        },
         methods: {
             log(inp){
                 console.log(inp);
             },
             handleDelete(index, row) {
-
-                let target_url = 'http://localhost:3000/feeds/'+ row.id; //id의 주소로 가서 삭제함
-                axios.delete(target_url)
-                    .then(resp => {
-                        console.log(resp.data)
-                    }).catch(error => {
-                    console.log(error);
-                });
-                this.$data.reader_web_info = null;//reader 화면 초기화
+                if(this.$store.getters.getLoginedID === row.madeBy){
+                    let target_url = 'http://localhost:3000/feeds/'+ row.id;
+                    axios.delete(target_url)
+                        .then(resp => {
+                            console.log(resp.data)
+                        }).catch(error => {
+                        console.log(error);
+                    });
+                    this.$data.reader_web_info = null;
+                }
+                else {
+                    this.$message.error("You can only delete your own feed!");
+                }
             },
             sendUrl(row,column,e){
                 this.$data.reader_web_info = row; //row를 하위 컴포넌트에 전달
             },
             Create(){
-                this.$data.dialogFormVisible = false;//dialog 숨김
-                axios.post(baseURL_feed, this.$data.form);//form을 추가함
-                this.$data.form = {category:'',date: '',title: '', url: '',rate:''}; //입력 폼 초기화
+                this.$data.dialogFormVisible = false;
+                axios.post(baseURL_feed, this.$data.form);
+                this.$data.form = {category:'',date: '',title: '', url: '',rate:'',madeBy:''};
 
             },
 
@@ -211,6 +210,9 @@
             } catch(e) {
                 console.error(e)
             }
+        },
+        components:{
+            FeedReader,
         },
     }
 
