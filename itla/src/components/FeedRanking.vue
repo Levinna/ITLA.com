@@ -1,34 +1,36 @@
 <template>
-    <el-table
-            :data="tableData.filter(data => !search || data.name.toLowerCase().includes(search.toLowerCase()))"
-            style="width: 100%">
-        <el-table-column
-                label="Date"
-                prop="date">
-        </el-table-column>
-        <el-table-column
-                label="Name"
-                prop="name">
-        </el-table-column>
-        <el-table-column
-                align="right">
-            <template slot="header" slot-scope="scope">
-                <el-input
-                        v-model="search"
-                        size="mini"
-                        placeholder="Type to search"/>
-            </template>
-            <template slot-scope="scope">
-                <el-button
-                        size="mini"
-                        @click="handleEdit(scope.$index, scope.row)">Edit</el-button>
-                <el-button
-                        size="mini"
-                        type="danger"
-                        @click="handleDelete(scope.$index, scope.row)">Delete</el-button>
-            </template>
-        </el-table-column>
-    </el-table>
+
+    <div class="feed">
+        <div class="feedLeft">
+            <el-row>
+                <section>
+                    <div>
+                        Expand/Collapse Accordion
+                    </div>
+                </section>
+                <el-col>
+
+                </el-col>
+                <el-collapse v-model="activeNames" accordion>
+                    <div v-for="t in todos">
+                        <el-collapse-item v-bind:title="t.displayName" :name="t.id">
+                            <el-row>
+                                <div>
+                                    <div>{{t.displayName}} editor</div>
+                                    <input type="text" />
+                                </div>
+                                This will contain some other fields for this item
+                            </el-row>
+                        </el-collapse-item>
+                    </div>
+                </el-collapse>
+            </el-row>
+        </div>
+        <div class="feedRight">
+
+        </div>
+    </div>
+
 </template>
 
 <script>
@@ -36,37 +38,26 @@
         name: "FeedRanking",
         data() {
             return {
-                tableData: [{
-                    date: '2016-05-03',
-                    name: 'Tom',
-                    address: 'No. 189, Grove St, Los Angeles'
-                }, {
-                    date: '2016-05-02',
-                    name: 'John',
-                    address: 'No. 189, Grove St, Los Angeles'
-                }, {
-                    date: '2016-05-04',
-                    name: 'Morgan',
-                    address: 'No. 189, Grove St, Los Angeles'
-                }, {
-                    date: '2016-05-01',
-                    name: 'Jessy',
-                    address: 'No. 189, Grove St, Los Angeles'
-                }],
-                search: '',
+                todos: [
+                    { id: 'first',  displayName: 'First' },
+                    { id: 'second', displayName: 'Second' },
+                    { id: 'third',  displayName: 'Third'}
+                ],
+                activeNames: [' ']
             }
         },
         methods: {
-            handleEdit(index, row) {
-                console.log(index, row);
-            },
-            handleDelete(index, row) {
-                console.log(index, row);
-            }
+
         },
     }
 </script>
 
 <style scoped>
-
+    .feed {
+        display:flex;
+    }
+    .feedLeft {
+        float:left;
+        width:50%;
+    }
 </style>

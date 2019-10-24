@@ -1,7 +1,7 @@
 <template>
-    <div class="signup">
+    <span class="signup">
 
-        <el-form :model="ruleForm" status-icon :rules="rules" ref="ruleForm" label-width="120px" class="demo-ruleForm">
+        <el-form :model="ruleForm" status-icon :rules="rules" ref="ruleForm" label-width="120px" class="signinForm" @keyup.enter.native="submitForm('ruleForm')">
             <el-form-item label="E-mail" prop="email">
                 <el-input v-model="ruleForm.email"></el-input>
             </el-form-item>
@@ -17,7 +17,7 @@
             </el-form-item>
         </el-form>
 
-    </div>
+    </span>
 </template>
 
 <script>
