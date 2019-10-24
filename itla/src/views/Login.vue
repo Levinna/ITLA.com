@@ -61,38 +61,43 @@
                 });
             },
             async login() {
-                let valid = await this.$refs.form.validate();
-                if (!valid) {
-                    return;
-                }
-
-                this.loading = true;
-                await this.simulateLogin();
-                this.loading = false;
-
-                for(let userCount = 0 ; userCount < loginStates.users.length; userCount++){
-                    // console.log("COUNTING", loginStates.users[userCount].email);
-                    if(this.loginModel.email === loginStates.users[userCount].email && this.loginModel.password === loginStates.users[userCount].password){
-                        this.credential = true;
-                        await this.$router.push("/home"); // to Home
-                        break;
+                try {
+                    let valid = await this.$refs.form.validate();
+                    if (!valid) {
+                        return;
                     }
-                    else{
-                        this.credential = false;
-                    }
-                }
-                if(this.credential)
-                    this.$message.success("Login successfull");
-                else
-                    this.$message.error("Some information you provided is invalid. Please Try Again.");
 
-                // if (this.loginModel.email === this.validCredentials.email &&
-                //     this.loginModel.password === this.validCredentials.password) {
-                //     this.$message.success("Login successfull");
-                //     await this.$router.push("/home"); // to Home
-                // } else {
-                //     this.$message.error("Some information you provided is invalid. Please Try Again.");
-                // }
+                    this.loading = true;
+                    await this.simulateLogin();
+                    this.loading = false;
+
+                    for(let userCount = 0 ; userCount < loginStates.users.length; userCount++){
+                        // console.log("COUNTING", loginStates.users[userCount].email);
+                        if(this.loginModel.email === loginStates.users[userCount].email && this.loginModel.password === loginStates.users[userCount].password){
+                            this.credential = true;
+                            await this.$router.push("/home"); // to Home
+                            break;
+                        }
+                        else{
+                            this.credential = false;
+                        }
+                    }
+                    if(this.credential)
+                        this.$message.success("Login successfull");
+                    else
+                        this.$message.error("Some information you provided is invalid. Please Try Again.");
+
+                    // if (this.loginModel.email === this.validCredentials.email &&
+                    //     this.loginModel.password === this.validCredentials.password) {
+                    //     this.$message.success("Login successfull");
+                    //     await this.$router.push("/home"); // to Home
+                    // } else {
+                    //     this.$message.error("Some information you provided is invalid. Please Try Again.");
+                    // }
+                }
+                catch(e) {
+                    console.log("async func Error catch",e);
+                }
             },
             trySignup() {
                 //Transition to Signup
