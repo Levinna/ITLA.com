@@ -37,9 +37,10 @@
                         label="Date"
                         prop="date">
                 </el-table-column>
+
                 <el-table-column
 
-                        width="100%"
+                        width="80%"
                         align="right">
                     <template slot-scope="scope">
                         <!--삭제 버튼 관련 부분-->
