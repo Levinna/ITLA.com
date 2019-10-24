@@ -8,8 +8,9 @@
                         placement="bottom"
                         width="200"
                         trigger="click">
-                    <div class="block" style="display: inline; text-align: center">
-                        <el-rate v-model="props.rate"></el-rate>
+                    <div id="star" style="display: inline-flex; text-align: center"   >
+                        <el-rate v-model="props.rate" allow-half class="rate_area"></el-rate>
+                        <el-button @click.stop="clear" > O</el-button>
                     </div>
                     <i v-bind:class="[star_class,props.rate ? 'el-icon-star-on':'el-icon-star-off']" slot="reference" @mouseover="on" @mouseleave= "off"></i>
                 </el-popover>
@@ -39,6 +40,10 @@
             },
             off(){
                 this.$data.star_class = "el-icon-star-off";
+            },
+            clear(){
+
+                this.props.rate = 0;
             }
         },
 
