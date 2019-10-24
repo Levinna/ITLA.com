@@ -21,13 +21,17 @@
 </template>
 
 <script>
-    import loginStates from "../../public/mockup/AccountInfo";
+    import axios from 'axios'; // import axios for Communication with json
+    import {baseURL_user} from "../main";
     export default {
         name: "Login",
         data() {
             return {
                 loading : false,
                 credential : false,
+                // async data
+                credentials : [],
+                //
                 loginModel : {
                     email : "",
                     password : ""
@@ -45,13 +49,14 @@
             }
         },
 
-        created: function () {
-          // console.log("loginCred",loginStates);
-          // console.log("IDCOUNT", loginStates.users[0].email);
-          // for(let testCount in loginStates.users){
-          //     console.log("TST2",testCount);
-          // }
-          // console.log("IDCOUNT2", loginStates.users.length);
+        async created() {
+            try {
+                const res = await axios.get(baseURL_user);
+                this.credentials = res.data;
+            }
+            catch (e) {
+                console.error(e);
+            }
         },
 
         methods: {
@@ -67,13 +72,18 @@
                         return;
                     }
 
+                    // // json communication TEST
+                    // console.log("Credentials : ", this.credentials);
+                    // console.log("Credentials Size : ",this.credentials.length);
+                    // //
+
                     this.loading = true;
                     await this.simulateLogin();
                     this.loading = false;
 
-                    for(let userCount = 0 ; userCount < loginStates.users.length; userCount++){
-                        // console.log("COUNTING", loginStates.users[userCount].email);
-                        if(this.loginModel.email === loginStates.users[userCount].email && this.loginModel.password === loginStates.users[userCount].password){
+                    for(let userCount = 0 ; userCount < this.credentials.length; userCount++){
+                        // console.log("COUNTING", this.credentials[userCount].email);
+                        if(this.loginModel.email === this.credentials[userCount].email && this.loginModel.password === this.credentials[userCount].password){
                             this.credential = true;
                             await this.$router.push("/home"); // to Home
                             break;
@@ -83,7 +93,7 @@
                         }
                     }
                     if(this.credential)
-                        this.$message.success("Login successfull");
+                        this.$message.success("Login successfull!");
                     else
                         this.$message.error("Some information you provided is invalid. Please Try Again.");
 

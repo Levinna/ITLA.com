@@ -1,7 +1,7 @@
 {
   "users": [
     {
-      "id" : 1,
+      "id": 1,
       "email": "test@test.com",
       "password": "123456",
       "usercategory": [
@@ -11,7 +11,7 @@
       ]
     },
     {
-      "id" : 2,
+      "id": 2,
       "email": "hello@alpha.net",
       "password": "123456",
       "usercategory": [
@@ -21,7 +21,7 @@
       ]
     },
     {
-      "id" : 3,
+      "id": 3,
       "email": "kevinna95@gmail.com",
       "password": "123456",
       "usercategory": [
@@ -29,6 +29,12 @@
         "New Products",
         "Day by Day"
       ]
+    },
+    {
+      "id": 4,
+      "email": "admin@itla.com",
+      "password": "123456",
+      "usercategory": []
     }
   ]
 }
