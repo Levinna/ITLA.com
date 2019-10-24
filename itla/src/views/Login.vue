@@ -53,6 +53,7 @@
             try {
                 const res = await axios.get(baseURL_user);
                 this.credentials = res.data;
+                console.log(this.credentials);
             }
             catch (e) {
                 console.error(e);

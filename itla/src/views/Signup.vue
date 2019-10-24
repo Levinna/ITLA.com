@@ -103,9 +103,8 @@
             },
             async addAccount() {
                 const userCount = this.credentials.length;
-                const basicCat = [];
-                const res = await axios.post(baseURL_user, { id: userCount+1, email: this.signupForm.email, password: this.signupForm.password, usercategory: basicCat });
-                this.credentials = [...this.credentials, res.data];
+                const ratings = [];
+                const res = await axios.post(baseURL_user, { id: userCount+1, email: this.signupForm.email, password: this.signupForm.password, ratings: ratings });
             },
             resetForm(formName) {
                 this.$refs[formName].resetFields();

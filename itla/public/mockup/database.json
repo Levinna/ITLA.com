@@ -1,0 +1,35 @@
+{
+  "users": [
+    {
+      "id": 1,
+      "email": "test@test.com",
+      "password": "123456",
+      "ratings": [
+        {
+          "id": 1,
+          "value": ""
+        },
+        {
+          "id": 2,
+          "value": ""
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "email": "admin@itla.com",
+      "password": "123456",
+      "ratings": []
+    }
+  ],
+  "feeds": [
+    {
+      "id": 1,
+      "madeBy": 0,
+      "date": "2000-01-01",
+      "title": "test Title",
+      "category": 0,
+      "url": "http://www.daum.net"
+    }
+  ]
+}
