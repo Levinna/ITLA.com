@@ -1,56 +1,57 @@
 <template>
     <div id="app">
-        <div class="header">
-            <h1 class="sitename">
-                <i class="el-icon-info"></i>
-                ITLA.com
-            </h1>
-        </div>
-        <div id="nav">
-          <el-menu
-                  class="el-menu-demo"
-                  mode="horizontal"
-                  @select="handleSelect"
-                  background-color="#545c64"
-                  text-color="#fff"
-                  active-text-color="#ffd04b">
+    <div class="header">
+        <h1 class="sitename">
+            <i class="el-icon-info"></i>
+            ITLA.com
+        </h1>
+    </div>
+    <div id="nav">
+        <el-menu
+                class="el-menu-demo"
+                mode="horizontal"
+                @select="handleSelect"
+                background-color="#545c64"
+                text-color="#fff"
+                active-text-color="#ffd04b">
             <el-menu-item index="1"> Home </el-menu-item>
             <el-menu-item index="2"> Login </el-menu-item>
             <el-menu-item index="3"> <a href="https://www.ele.me" target="_blank" style="text-decoration:none"> Ref </a></el-menu-item>
-          </el-menu>
-        </div>
-        <router-view></router-view>
-        <div class="footer">
-            <div class="About">
-                <span><router-link to="/about" style="text-decoration:none">About</router-link></span>
-                <div class="version">Version 0.1</div>
-            </div>
+        </el-menu>
+    </div>
+    <router-view></router-view>
+    <div class="footer">
+        <div class="About">
+            <span><router-link to="/about" style="text-decoration:none">About</router-link></span>
+            <div class="version">Version 0.1</div>
         </div>
     </div>
+</div>
 </template>
 
+
 <script>
-  export default {
-    name: "App",
-    methods: {
-      handleSelect(key, keyPath) {
-        console.log(key, keyPath); // Debug
-        switch (key) {
-          case '1': {
-            this.$router.push("/home");
-            break;
-          }
-          case '2': {
-            this.$router.push("/login");
-            break;
-          }
-          // default : {
-          //   this.$router.push("/");
-          // }
+    export default {
+        name: "App",
+        methods: {
+            handleSelect(key, keyPath) {
+                console.log(key, keyPath); // Debug
+                switch (key) {
+                    case '1': {
+                        this.$router.push("/home");
+                        break;
+                    }
+                    case '2': {
+                        this.$router.push("/login");
+                        break;
+                    }
+                    // default : {
+                    //   this.$router.push("/");
+                    // }
+                }
+            }
         }
-      }
     }
-  }
 </script>
 
 <style>
@@ -63,6 +64,9 @@
         color: #2c3e50;
     }
 
+#nav {
+  padding: 30px;
+}
     #nav {
         padding: 1%;
     }
@@ -75,11 +79,11 @@
     }
 
     .header, .footer {
-      padding: 20px;
-      color: #f0f4f8;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
+        padding: 20px;
+        color: #f0f4f8;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
     }
 
     h1,
@@ -91,9 +95,9 @@
     }
 
     .sitename {
-      letter-spacing: 3px;
-      padding-top: 15px;
-      padding-bottom: 15px;
+        letter-spacing: 3px;
+        padding-top: 15px;
+        padding-bottom: 15px;
     }
 
     .About {
@@ -101,24 +105,29 @@
     }
 
     .About span {
-      padding: 0 10px;
-      font-size: 18px;
-      border-right: 1px solid #9fb3c8;
+        padding: 0 10px;
+        font-size: 18px;
+        border-right: 1px solid #9fb3c8;
     }
 
     .About span:last-child {
-      border-right: none;
+        border-right: none;
     }
 
     .About span a {
-      color: #f0f4f8;
+        color: #f0f4f8;
     }
 
+#nav a {
+  font-weight: bold;
+  color: #2c3e50;
+}
     .version {
         padding: 0 10px;
         color: #f0f4f8;
         font-size: 13px;
         margin-top: 5px;
     }
+
 
 </style>
