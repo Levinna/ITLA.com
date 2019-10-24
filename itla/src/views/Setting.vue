@@ -29,7 +29,7 @@
                     </div>
 
 
-                    <el-table class="category_edit" header-row-style="display:none;"
+                    <el-table class="category_edit" header-row-style="display:none;" style="font-size: 21px"
                               :data="this.$data.UserCategory.filter(data => !search_target || data.category.toLowerCase().includes(search_target.toLowerCase()))">
                         <el-table-column
                                 align="left">
@@ -86,7 +86,7 @@
 
 <script>
     function changePassword(new_password) {
-        console.log(new_password, "로 변경됨")
+        alert("비밀번호가 변경되었습니다")
     }
 
     export default {
@@ -101,19 +101,19 @@
                 visible: false,
                 UserCategory: [
                     {
-                        "category": "shopping",
+                        "category": "product",
 
                     },
                     {
-                        "category": "reading",
+                        "category": "review",
 
                     },
                     {
-                        "category": "cleaning",
+                        "category": "game",
 
                     },
                     {
-                        "category": "exercise",
+                        "category": "tech",
 
                     },
                     {
@@ -121,10 +121,10 @@
 
                     },
                     {
-                        "category": "review"
+                        "category": "info"
                     },
                     {
-                        "category": "buy"
+                        "category": "Apple"
                     }
                 ]
 

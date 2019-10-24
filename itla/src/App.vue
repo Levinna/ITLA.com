@@ -1,7 +1,7 @@
 <template>
     <div id="app">
     <div class="header">
-        <h1 class="sitename">
+        <h1 class="sitename" @click="$router.push('/home')" style="cursor: pointer">
             <i class="el-icon-info"></i>
             ITLA.com
         </h1>
