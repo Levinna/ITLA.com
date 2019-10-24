@@ -24,13 +24,6 @@
   ],
   "feeds": [
     {
-      "date": "2019-10-16",
-      "title": "new",
-      "url": "google.ca",
-      "rate": null,
-      "id": 6
-    },
-    {
       "category": "1",
       "title": "사람이 졸린 이유",
       "date": "2019-10-25",

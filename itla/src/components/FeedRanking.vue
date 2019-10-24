@@ -56,7 +56,7 @@
                 <el-dialog title="피드 추가" :visible.sync="dialogFormVisible">
                     <el-form :model="form">
                         <el-form-item label="Category" :label-width="formLabelWidth" style="width:100%">
-                            <el-select v-model="form.category" placeholder="Select" style="width:100%">
+                            <el-select v-model="form.category" placeholder="Select" style="width:100%" >
                                 <el-option
                                         v-for="item in options"
                                         :key="item.value"
@@ -107,7 +107,7 @@
         name: "FeedRanking",
         data() {
             return {
-                propsdata:"",
+                propsdata:[ ],
                 logindata:{
                     "id": 1,
                     "email": "test@test.com",
@@ -181,16 +181,23 @@
                 this.$data.form = {category:'',date: '',title: '', url: '',rate:'',};
             },
 
+            makeCategory () {
+                let temp = -1;
+                for(let feedsCount = 0; feedsCount < this.propsdata.length ; feedsCount++){
+                    temp = parseInt(this.propsdata[feedsCount].category);
+                    this.propsdata[feedsCount].category = this.$store.state.feedCategories[temp];
+                }
+            }
         },
         async created() {
             try {
                 const res = await axios.get(baseURL_feed);
                 this.propsdata = res.data;
+                this.makeCategory();
             } catch(e) {
                 console.error(e)
             }
         },
-
     }
 
 </script>
