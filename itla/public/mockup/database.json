@@ -20,16 +20,41 @@
       "email": "admin@itla.com",
       "password": "123456",
       "ratings": []
+    },
+    {
+      "id": 3,
+      "email": "s@s.com",
+      "password": "123456",
+      "ratings": []
     }
   ],
   "feeds": [
     {
       "category": "1",
-      "title": "사람이 졸린 이유",
-      "date": "2019-10-25",
-      "url": "google.ca",
+      "title": "dsa",
+      "date": "2019-10-18",
+      "url": "asdfasdf",
       "rate": null,
-      "id": 7
+      "madeBy": "2",
+      "id": 3
+    },
+    {
+      "category": "1",
+      "title": "asdfasd",
+      "date": "2019-10-26",
+      "url": "zxcvzxcv",
+      "rate": null,
+      "madeBy": "2",
+      "id": 4
+    },
+    {
+      "category": "2",
+      "title": "asdfasf",
+      "date": "2019-10-03",
+      "url": "asdfasdf",
+      "rate": null,
+      "madeBy": "1",
+      "id": 5
     }
   ]
 }

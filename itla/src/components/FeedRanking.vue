@@ -1,5 +1,7 @@
 <template>
     <div style="display: flex; margin: auto; height: 35em">
+
+        <!--피드 관련된 부분-->
         <div id = "feeds" style="float: left; width:35%; height: 100%">
             <div>
                 <el-input v-model="search"
@@ -8,6 +10,8 @@
                         style="height: 6%"
                         prefix-icon="el-icon-search"/>
                 </div>
+            <!--sendUrl은 reader에 보내는 props인 reader_web_info 값을 변경하는 함수 -->
+            <!--피드들 불러와서 보여주는 부분-->
             <el-table
 
                     @cell-click = "sendUrl"
@@ -15,8 +19,9 @@
                     :data="this.$data.props_feed_data.filter(data => !search || data.title.toLowerCase().includes(search.toLowerCase()))"
                     style="width: 100%;"
                     height="88%">
-
+                <!--width는 colum 간 거리를 보고 적당히 정한 값-->
                 <el-table-column
+
                         width="120%"
                         label="category"
                         prop="category">
@@ -34,12 +39,13 @@
                         prop="date">
                 </el-table-column>
                 <el-table-column
+
                         width="100%"
                         align="right">
                     <template slot-scope="scope">
-                        <!--disabled = "props_user_data.rating[i].id == "-->
+                        <!--삭제 버튼 관련 부분-->
                         <el-button
-                                disabled
+                                v-if="parseInt(scope.row.madeBy) !== parseInt(loginID)"
                                 icon = "el-icon-delete-solid"
                                 size="mini"
                                 type="danger"
@@ -49,13 +55,18 @@
                 </el-table-column>
 
             </el-table>
+
+            <!--피드를 추가하는 버튼 관련-->
             <div id ="add_button" style="position: relative">
                 <el-button
                     size="mini"
                     type="primary"
                     @click.stop = "dialogFormVisible = true"
                     style="width: 100%; position: absolute;bottom: -2.5em; left: 0"><span style="font-size: 130%">Add</span></el-button>
+
+                <!--피드 추가 하면 dialog 팝업되는 부분-->
                 <el-dialog title="피드 추가" :visible.sync="dialogFormVisible">
+                    <!--각종 폼들-->
                     <el-form :model="form">
                         <el-form-item label="Category" :label-width="formLabelWidth" style="width:100%">
                             <el-select v-model="form.category" placeholder="Select" style="width:100%" >
@@ -84,15 +95,20 @@
                             </el-input>
                         </el-form-item>
                     </el-form>
+
+                    <!--확인, 취소 버튼-->
                     <span slot="footer" class="dialog-footer">
                         <el-button @click="dialogFormVisible = false">Cancel</el-button>
                         <el-button type="primary" @click="Create">Confirm</el-button>
                     </span>
+
                 </el-dialog>
             </div>
         </div>
+        <!--float 취소해주는 부분-->
         <div style="clear: both"></div>
 
+        <!--리더부분. web_info(row 값 전체) 를 전달한다. -->
         <div id = "reader" v-if="reader_web_info" style="width: 100%;" >
             <feed-reader v-bind:props="reader_web_info" style="width: 98%; height: 100%; margin: auto; overflow: hidden" ></feed-reader>
         </div>
@@ -110,9 +126,9 @@
         name: "FeedRanking",
         data() {
             return {
-                loginID:"",
-                props_feed_data:[ ],
-                props_user_data:[],
+                loginID: 1, //로그인될을 때를 위한 임시 값
+                props_feed_data:[ ],//서버에서 피드 받아와서 저장함
+                props_user_data:[],//서버에서 유저 받아와서 저장함
                 options: [{
                     value: '0',
                     label: 'Software'
@@ -132,16 +148,17 @@
                     value: '5',
                     label: 'Misc'
                 }], //추가할 때 카테고리 선택하려면 필요함
-                formLabelWidth: '120px',
-                dialogFormVisible: false,
-                reader_web_info :"",
+                formLabelWidth: '120px', //폼 부분 크기
+                dialogFormVisible: false,//dialog 보이고 숨기기 위한 변수
+                reader_web_info :"",//reader가 화면 보여줄 떄 필욯ㅁ
                 form: {
                     category:'',
                     title: '',
                     date: '',
                     url: '',
                     rate:null,
-                },
+                    madeBy:'1',
+                },//feed 추가하기 위한 것들. 로그인 했을 때 loginID를 madeBy에 넣어서 쭉 유지시키려고 함.
                 search: '',
             }
         },
@@ -154,34 +171,34 @@
             },
             handleDelete(index, row) {
 
-                let target_url = 'http://localhost:3000/feeds/'+ row.id;
+                let target_url = 'http://localhost:3000/feeds/'+ row.id; //id의 주소로 가서 삭제함
                 axios.delete(target_url)
                     .then(resp => {
                         console.log(resp.data)
                     }).catch(error => {
                     console.log(error);
                 });
-                this.$data.reader_web_info = null;
+                this.$data.reader_web_info = null;//reader 화면 초기화
             },
             sendUrl(row,column,e){
-                this.$data.reader_web_info = row;
+                this.$data.reader_web_info = row; //row를 하위 컴포넌트에 전달
             },
             Create(){
-                this.$data.dialogFormVisible = false;
-                axios.post(baseURL_feed, this.$data.form);
-                this.$data.form = {category:'',date: '',title: '', url: '',rate:'',};
+                this.$data.dialogFormVisible = false;//dialog 숨김
+                axios.post(baseURL_feed, this.$data.form);//form을 추가함
+                this.$data.form = {category:'',date: '',title: '', url: '',rate:''}; //입력 폼 초기화
 
             },
 
-            makeCategory () {
+            makeCategory () {//정수 값을 카테고리로
                 let temp = -1;
                 for(let feedsCount = 0; feedsCount < this.props_feed_data.length ; feedsCount++){
                     temp = parseInt(this.props_feed_data[feedsCount].category);
                     this.props_feed_data[feedsCount].category = this.$store.state.feedCategories[temp];
                 }
-            }
+            },
         },
-        async created() {
+        async created() {// 데이터 불러옴
             try {
                 const res = await axios.get(baseURL_feed);
                 this.props_feed_data = res.data;
@@ -190,6 +207,7 @@
                 const res2 = await axios.get(baseURL_user);
                 this.props_user_data = res2.data;
                 this.$data.loginID = this.$store.state.loginID;
+
             } catch(e) {
                 console.error(e)
             }
