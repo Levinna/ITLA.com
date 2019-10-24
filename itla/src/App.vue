@@ -16,7 +16,7 @@
                 active-text-color="#ffd04b">
             <el-menu-item index="1"> Home </el-menu-item>
             <el-menu-item index="2"> Login </el-menu-item>
-            <el-menu-item index="3"> <a href="https://www.ele.me" target="_blank" style="text-decoration:none"> Ref </a></el-menu-item>
+            <el-menu-item index="3"> setting </el-menu-item>
         </el-menu>
     </div>
     <router-view></router-view>
@@ -45,6 +45,12 @@
                         this.$router.push("/login");
                         break;
                     }
+                    case '3': {
+                        this.$router.push("/setting");
+                        break;
+                    }
+
+
                     // default : {
                     //   this.$router.push("/");
                     // }

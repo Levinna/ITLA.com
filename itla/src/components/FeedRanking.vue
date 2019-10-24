@@ -64,14 +64,14 @@
         </div>
         <div style="clear: both"></div>
 
-        <div id = "reader" v-show="reader_web_info" style="width: 100%; height: 100%" >
+        <div id = "reader" v-if="reader_web_info" style="width: 100%; height: 100%" >
             <feed-reader v-bind:props="reader_web_info" style="width: 98%; height: 100%; margin: auto" ></feed-reader>
         </div>
     </div>
 </template>
 
 <script>
-    import FeedReader from "../views/Feedreader";
+    import FeedReader from "./Feedreader";
 
 
     export default {
@@ -111,7 +111,7 @@
                     date: '',
                     title: '',
                     url: '',
-                    rate:'',
+                    rate:null,
                 },
                 search: '',
             }

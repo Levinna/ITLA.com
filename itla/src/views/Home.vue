@@ -18,7 +18,9 @@
     export default {
         name: 'home',
         data() {
-            return {}
+            return {
+
+            }
         },
         components: {
             FeedRanking
