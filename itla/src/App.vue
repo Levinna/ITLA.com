@@ -1,32 +1,33 @@
 <template>
     <div id="app">
-    <div class="header">
-        <h1 class="sitename" @click="$router.push('/home')" style="cursor: pointer">
-            <i class="el-icon-info"></i>
-            ITLA.com
-        </h1>
-    </div>
-    <div id="nav">
-        <el-menu
-                class="el-menu-demo"
-                mode="horizontal"
-                @select="handleSelect"
-                background-color="#545c64"
-                text-color="#fff"
-                active-text-color="#ffd04b">
-            <el-menu-item index="1"> Home </el-menu-item>
-            <el-menu-item index="2"> Login </el-menu-item>
-            <el-menu-item index="3"> setting </el-menu-item>
-        </el-menu>
-    </div>
-    <router-view></router-view>
-    <div class="footer">
-        <div class="About">
-            <span><router-link to="/about" style="text-decoration:none">About</router-link></span>
-            <div class="version">Version 0.1</div>
+        <div class="header">
+            <h1 class="sitename" @click="$router.push('/home')" style="cursor: pointer">
+                <i class="el-icon-info"></i>
+                ITLA.com
+            </h1>
+        </div>
+        <div id="nav">
+            <el-menu
+                    class="main-menu"
+                    mode="horizontal"
+                    @select="handleSelect"
+                    background-color="#545c64"
+                    text-color="#fff"
+                    active-text-color="#ffd04b">
+                <el-menu-item index="1"> <router-link to="/home" style="text-decoration: none">Home</router-link> </el-menu-item>
+                <el-menu-item index="2"> <router-link to="/login" style="text-decoration: none">Login</router-link> </el-menu-item>
+                <el-menu-item index="3"> <router-link to="/setting" style="text-decoration: none">Setting</router-link> </el-menu-item>
+                <el-menu-item index="4"> <router-link to="/about" style="text-decoration:none">About</router-link> </el-menu-item>
+            </el-menu>
+        </div>
+        <router-view></router-view>
+        <div class="footer">
+            <div class="About">
+                <span> <a href="https://www.ele.me" target="_blank" style="text-decoration:none">Based on Element UI</a> </span>
+                <div class="version">Version 0.2</div>
+            </div>
         </div>
     </div>
-</div>
 </template>
 
 
@@ -36,25 +37,6 @@
         methods: {
             handleSelect(key, keyPath) {
                 console.log(key, keyPath); // Debug
-                switch (key) {
-                    case '1': {
-                        this.$router.push("/home");
-                        break;
-                    }
-                    case '2': {
-                        this.$router.push("/login");
-                        break;
-                    }
-                    case '3': {
-                        this.$router.push("/setting");
-                        break;
-                    }
-
-
-                    // default : {
-                    //   this.$router.push("/");
-                    // }
-                }
             }
         }
     }
@@ -70,11 +52,23 @@
         color: #2c3e50;
     }
 
-#nav {
-  padding: 30px;
-}
+    #nav {
+        padding: 30px;
+    }
+
     #nav {
         padding: 1%;
+    }
+
+    #nav a {
+        display:block;
+        width:100%;
+        height:100%;
+    }
+
+    .main-menu li {
+        width:25%;
+        font-size:20px;
     }
 
     body {
@@ -122,12 +116,11 @@
 
     .About span a {
         color: #f0f4f8;
+        display:block;
+        width:100%;
+        height:100%
     }
 
-#nav a {
-  font-weight: bold;
-  color: #2c3e50;
-}
     .version {
         padding: 0 10px;
         color: #f0f4f8;

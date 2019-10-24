@@ -9,6 +9,8 @@ Vue.config.productionTip = false;
 
 Vue.use(ElementUI); // Element UI 전역 등록
 
+export const baseURL_user = "http://localhost:3000/users"; // for retrieving the baseurl of each json file
+
 new Vue({
   router,
   render: h => h(App)

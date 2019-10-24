@@ -4,7 +4,7 @@
             <h2>Login</h2>
             <el-form class="loginForm" :model="loginModel" :rules="loginRules" ref="form" @submit.native.prevent="login">
                 <el-form-item prop="email">
-                    <el-input v-model="loginModel.email" placeholder="E-mail" prefix-icon="el-icon-user"></el-input>
+                    <el-input v-model="loginModel.email" placeholder="E-mail" prefix-icon="el-icon-user" ></el-input>
                 </el-form-item>
                 <el-form-item prop="password">
                     <el-input v-model="loginModel.password" placeholder="Password" type="password" prefix-icon="el-icon-lock"></el-input>
@@ -21,15 +21,17 @@
 </template>
 
 <script>
+    import axios from 'axios'; // import axios for Communication with json
+    import {baseURL_user} from "../main";
     export default {
         name: "Login",
         data() {
             return {
                 loading : false,
-                validCredentials: { // get Valid credential from json file later
-                    email: "test@test.com",
-                    password: "123456"
-                },
+                credential : false,
+                // async data
+                credentials : [],
+                //
                 loginModel : {
                     email : "",
                     password : ""
@@ -47,27 +49,64 @@
             }
         },
 
-        methods: {
+        async created() {
+            try {
+                const res = await axios.get(baseURL_user);
+                this.credentials = res.data;
+            }
+            catch (e) {
+                console.error(e);
+            }
+        },
 
+        methods: {
             simulateLogin() {
                 return new Promise(resolve => {
                     setTimeout(resolve, 500);
                 });
             },
             async login() {
-                let valid = await this.$refs.form.validate();
-                if (!valid) {
-                    return;
+                try {
+                    let valid = await this.$refs.form.validate();
+                    if (!valid) {
+                        return;
+                    }
+
+                    // // json communication TEST
+                    // console.log("Credentials : ", this.credentials);
+                    // console.log("Credentials Size : ",this.credentials.length);
+                    // //
+
+                    this.loading = true;
+                    await this.simulateLogin();
+                    this.loading = false;
+
+                    for(let userCount = 0 ; userCount < this.credentials.length; userCount++){
+                        // console.log("COUNTING", this.credentials[userCount].email);
+                        if(this.loginModel.email === this.credentials[userCount].email && this.loginModel.password === this.credentials[userCount].password){
+                            this.credential = true;
+                            await this.$router.push("/home"); // to Home
+                            break;
+                        }
+                        else{
+                            this.credential = false;
+                        }
+                    }
+                    if(this.credential)
+                        this.$message.success("Login successfull!");
+                    else
+                        this.$message.error("Some information you provided is invalid. Please Try Again.");
+
+                    // if (this.loginModel.email === this.validCredentials.email &&
+                    //     this.loginModel.password === this.validCredentials.password) {
+                    //     this.$message.success("Login successfull");
+                    //     await this.$router.push("/home"); // to Home
+                    // } else {
+                    //     this.$message.error("Some information you provided is invalid. Please Try Again.");
+                    // }
                 }
-                this.loading = true;
-                await this.simulateLogin();
-                this.loading = false;
-                if (this.loginModel.email === this.validCredentials.email &&
-                    this.loginModel.password === this.validCredentials.password) {
-                    this.$message.success("Login successfull");
-                    await this.$router.push("/home"); // to Home
-                } else {
-                    this.$message.error("Some information you provided is invalid. Please Try Again.");
+                catch(e) {
+                    console.log("async func Error catch",e);
                 }
             },
             trySignup() {
