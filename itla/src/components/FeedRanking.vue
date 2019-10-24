@@ -64,16 +64,17 @@
         <div id = "reader" v-show="reader_web_info" style="width: 100%; height: 100%" >
             <feed-reader v-bind:props="reader_web_info" style="width: 100%; height: 100%" ></feed-reader>
         </div>
-    <div @click="sendUrl" style="width: 100%; height: 30px; background: teal"></div>
+
 
 </div>
 </template>
-import FeedReader from "./Feedreader";
+
 <script>
     import FeedReader from "../views/Feedreader";
 
 
     export default {
+
         name: "FeedRanking",
         data() {
             return {
@@ -88,12 +89,11 @@ import FeedReader from "./Feedreader";
                     rate:'',
                 },
                 search: '',
-                arr : ["1","2","3"],
             }
         },
         components:{
           FeedReader,
-        },
+        }
         methods: {
 
             handleDelete(index, row) {
@@ -118,5 +118,11 @@ import FeedReader from "./Feedreader";
 </script>
 
 <style scoped>
-
+    .feed {
+        display:flex;
+    }
+    .feedLeft {
+        float:left;
+        width:50%;
+    }
 </style>

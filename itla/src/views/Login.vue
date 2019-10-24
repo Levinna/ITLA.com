@@ -1,22 +1,22 @@
 <template>
-    <div class="login">
-        <h1>This is login page</h1>
+    <span class="login">
+        <h1>This is login page</h1> <!-- 추후 다른 스타일로 변경 -->
 
-        <el-form :model="loginForm" :rules="rules" ref="loginForm" label-width="120px" class="loginForm">
+        <el-form :model="loginForm" :rules="rules" ref="loginForm" label-width="120px" class="loginForm" @keyup.enter.native="submitForm('loginForm')">
             <el-form-item label="E-mail" prop="email">
-                <el-input v-model="loginForm.email"></el-input>
+                <el-input v-model="loginForm.email" ></el-input>
             </el-form-item>
             <el-form-item label="Password" prop="password">
                 <el-input v-model="loginForm.password" show-password></el-input>
             </el-form-item>
             <el-form-item>
                 <el-button type="success" @click="trySignup">Sign Up</el-button>
-                <el-button type="primary" @click="submitForm('loginForm')" @keydown.enter="submitForm('loginForm')">Login</el-button>
+                <el-button type="primary" @click="submitForm('loginForm')">Login</el-button>
                 <!-- <el-link type="primary">Forgot password?</el-link> -->
             </el-form-item>
         </el-form>
 
-    </div>
+    </span>
 </template>
 
 <script>
@@ -65,4 +65,5 @@
 </script>
 
 <style scoped>
+
 </style>
