@@ -9,7 +9,6 @@
                         prefix-icon="el-icon-search"/>
                 </div>
             <el-table
-
                     @cell-click = "sendUrl"
                     empty-text="결과가 없습니다."
                     :data="this.$data.props_feed_data.filter(data => !search || data.title.toLowerCase().includes(search.toLowerCase()))"
@@ -39,7 +38,6 @@
                     <template slot-scope="scope">
                         <!--disabled = "props_user_data.rating[i].id == "-->
                         <el-button
-                                disabled
                                 icon = "el-icon-delete-solid"
                                 size="mini"
                                 type="danger"
@@ -145,23 +143,24 @@
                 search: '',
             }
         },
-        components:{
-          FeedReader,
-        },
         methods: {
             log(inp){
                 console.log(inp);
             },
             handleDelete(index, row) {
-
-                let target_url = 'http://localhost:3000/feeds/'+ row.id;
-                axios.delete(target_url)
-                    .then(resp => {
-                        console.log(resp.data)
-                    }).catch(error => {
-                    console.log(error);
-                });
-                this.$data.reader_web_info = null;
+                if(this.$store.getters.getLoginedID === row.madeBy){
+                    let target_url = 'http://localhost:3000/feeds/'+ row.id;
+                    axios.delete(target_url)
+                        .then(resp => {
+                            console.log(resp.data)
+                        }).catch(error => {
+                        console.log(error);
+                    });
+                    this.$data.reader_web_info = null;
+                }
+                else {
+                    this.$message.error("You can only delete your own feed!");
+                }
             },
             sendUrl(row,column,e){
                 this.$data.reader_web_info = row;
@@ -169,7 +168,7 @@
             Create(){
                 this.$data.dialogFormVisible = false;
                 axios.post(baseURL_feed, this.$data.form);
-                this.$data.form = {category:'',date: '',title: '', url: '',rate:'',};
+                this.$data.form = {category:'',date: '',title: '', url: '',rate:'',madeBy:''};
 
             },
 
@@ -193,6 +192,9 @@
             } catch(e) {
                 console.error(e)
             }
+        },
+        components:{
+            FeedReader,
         },
     }
 
