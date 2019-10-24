@@ -34,7 +34,7 @@ const routes = [ // path connection
     },    {
         path: '/feedreader',
         name: 'feedreader',
-        component: () =>import('../views/Feedreader.vue')
+        component: () =>import('../components/Feedreader.vue')
 
     },
     {
